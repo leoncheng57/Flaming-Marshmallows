@@ -7,11 +7,17 @@ var image = new Image();
 var dx = 0;
 var dy = 0;
 var begin = false;
+var count = 0;
 image.src = "logo_dvd.jpg";
 
 start.addEventListener("click", function(){
-    makeDVD().draw();
-    makeDVD().update();
+    if(count==0){
+        var first = makeDVD();
+        first.update();
+    } else if (count==1){
+        var second = makeDVD();
+        second.update();
+    }
 });
 
 function makeDVD(){
