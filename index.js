@@ -9,7 +9,7 @@ start.addEventListener("click", function() {
     var ball = makeBall();
     balls.push(ball);
     console.log(balls);
-    window.setInterval(drawAll, 200);
+    window.setInterval(drawAll, 50);
 });
 
 function drawAll(){
@@ -39,33 +39,33 @@ function makeBall() {
     function move() {
 	//console.log("inside move");
         if(horizontal){
-            dx++;
+            this.dx++;
 	    //console.log("dx: "+dx);
-            if(dx + 100 == 538){
+            if(this.dx + 100 == 538){
                 horizontal = false;
             } if(vertical){
-                dy++;
-                if(dy + 52 == 538){
+                this.dy++;
+                if(this.dy + 52 == 538){
                     vertical = false;
                 }
             } else{
-                dy--;
-                if(dy == 0){
+                this.dy--;
+                if(this.dy == 0){
                     vertical = true;
                 }
             }
         } else{
-            dx--;
-            if(dx == 0){
+            this.dx--;
+            if(this.dx == 0){
                 horizontal = true;
             } if(vertical){
-                dy++;
-                if(dy + 52 == 538){
+                this.dy++;
+                if(this.dy + 52 == 538){
                     vertical = false;
                 }
             } else{
-                dy--;
-                if(dy == 0){
+                this.dy--;
+                if(this.dy == 0){
                     vertical = true;
                 }
             }
