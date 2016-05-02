@@ -3,38 +3,44 @@ console.log("begin");
 var start = document.getElementById("dvd");
 var c = document.getElementById("canvas");
 var canvas = c.getContext("2d");
-var image = new Image();
-var dx = 0;
-var dy = 0;
-var begin = false;
-var count = 0;
-image.src = "logo_dvd.jpg";
+var balls = [];
 
-start.addEventListener("click", function(){
-    if(count==0){
-        var first = makeDVD();
-        first.update();
-    } else if (count==1){
-        var second = makeDVD();
-        second.update();
-    }
+start.addEventListener("click", function() {
+    var ball = makeBall();
+    balls.push(ball);
+    console.log(balls);
+    window.setInterval(drawAll, 200);
 });
 
-function makeDVD(){
+function drawAll(){
+    canvas.clearRect(0, 0, 538, 538);
+    for (var i = 0; i < balls.length; i++) {
+	console.log("inside loop");
+	balls[i].move();
+	canvas.beginPath();
+	canvas.arc(balls[i].dx, balls[i].dy, 25, 0, 2*Math.PI);
+	//console.log("balls[i].dx: "+balls[i].dx);
+	canvas.fillStyle = "#ff6c24" //orange
+	canvas.stroke();
+	canvas.fill();
+	canvas.closePath();
+    }
+}
+
+
+
+
+function makeBall() {
+
+    var dx = 0;
+    var dy = 0;
     var vertical = true;
     var horizontal = true;
-    var requestID;
-    function draw(){
-        //console.log("draw");
-        canvas.clearRect(0, 0, 538, 538);
-        canvas.drawImage(image, dx, dy, 100, 52);
-    }
-    function move(){
-        //console.log("move");
-        //console.log("dvd!");
-        draw();
+    function move() {
+	//console.log("inside move");
         if(horizontal){
             dx++;
+	    //console.log("dx: "+dx);
             if(dx + 100 == 538){
                 horizontal = false;
             } if(vertical){
@@ -63,23 +69,14 @@ function makeDVD(){
                     vertical = true;
                 }
             }
-        } requestID = window.requestAnimationFrame(move);
-    }
-    function update(){
-        if(begin){
-            console.log("already started");
-        } else{
-            begin = true;
-            console.log("starting");
-            this.move();
-        }
+        } 
     }
     return {
-        draw   : draw,
-        move   : move,
-        update : update,
-        begin  : begin
-    };
+	move : move,
+	dx : dx,
+	dy : dy
+    }
 }
+
 
 console.log("end");
