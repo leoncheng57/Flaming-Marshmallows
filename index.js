@@ -17,12 +17,12 @@ start.addEventListener("click", function() {
 function drawAll() {
     canvas.clearRect(0, 0, 538, 538);
     for (var i = 0; i < balls.length; i++) {
-	console.log("inside loop");
+	//console.log("inside loop");
 	balls[i].move();
 	canvas.beginPath();
 	canvas.arc(balls[i].dx, balls[i].dy, radius, 0, 2*Math.PI);
 	//console.log("balls[i].dx: "+balls[i].dx);
-	canvas.fillStyle = "#ff6c24" //orange
+	canvas.fillStyle = balls[i].color;
 	canvas.stroke();
 	canvas.fill();
 	canvas.closePath();
@@ -37,6 +37,7 @@ function makeBall() {
     var v = 1; //velocity
     var vertical = (Math.random()*100 > 50);
     var horizontal = (Math.random()*100 > 50);
+    var color = "#ff6c24"; //orange
     
     function move() {
 	for (var i = 0; i < balls.length; i++) {
@@ -94,9 +95,18 @@ function makeBall() {
 	dy : dy,
 	v : v,
 	vertical,
-	horizontal
+	horizontal,
+	color
     }
 }
+
+
+// var newBalls = balls.filter( function (ball) {
+//     return ball.color != "#00FF00"; //green
+//     }).map(function (ball) {
+// 	return "#00FF00"; //green
+//     });
+
 
 
 console.log("end");
